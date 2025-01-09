@@ -31,21 +31,21 @@ body {
   background-color: #c0392b;
 }
 
-/* Message Style */
+/* Make sure the message is visible and centered */
 #message {
   position: absolute;
-  top: 60%;
+  top: 60%; /* Adjusted position to make it visible on the screen */
   left: 50%;
   transform: translateX(-50%);
   font-size: 32px;
   color: #333;
   font-weight: bold;
   z-index: 1;
-  visibility: hidden; /* Initially hide the message */
+  visibility: hidden; /* Initially hidden */
 }
 
 .hidden {
-  visibility: visible; /* Show the message */
+  visibility: visible; /* Make visible when the class is added */
 }
 
 #confetti {
