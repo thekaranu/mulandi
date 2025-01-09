@@ -2,13 +2,6 @@ document.getElementById('celebrateLink').addEventListener('click', function() {
   // Show the congratulatory message
   document.getElementById('message').classList.remove('hidden');
 
-  // Trigger the heart pulsation
-  const heart = document.getElementById('heart');
-  heart.classList.add('pulsating');
-  setTimeout(() => {
-    heart.classList.remove('pulsating');
-  }, 1000);
-
   // Trigger confetti effect
   startConfetti();
 });
