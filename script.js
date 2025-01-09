@@ -1,65 +1,35 @@
-document.getElementById('celebrateLink').addEventListener('click', function() {
-  // Show the congratulatory message
+document.getElementById('congratsLink').addEventListener('click', function (event) {
+  event.preventDefault();
   document.getElementById('message').classList.remove('hidden');
-
-  // Trigger confetti effect
-  startConfetti();
+  launchConfetti();
 });
 
-// Function to start confetti
-function startConfetti() {
-  const confetti = document.createElement('div');
-  confetti.id = 'confetti';
+function launchConfetti() {
+  const confetti = document.createElement('script');
+  confetti.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js";
   document.body.appendChild(confetti);
 
-  const canvas = document.createElement('canvas');
-  confetti.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-
-  // Set canvas size
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  // Particle settings
-  const particles = [];
-  const colors = ['#ff0', '#ff6347', '#ff1493', '#32cd32', '#1e90ff'];
-
-  function createParticle() {
-    const particle = {
-      x: Math.random() * canvas.width,
-      y: -10,
-      size: Math.random() * 5 + 5,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      speedX: Math.random() * 4 - 2,
-      speedY: Math.random() * 4 + 2
+  confetti.onload = () => {
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const confettiSettings = {
+      angle: 90,
+      spread: 45,
+      startVelocity: 30,
+      elementCount: 200,
+      dragFriction: 0.1,
+      duration: duration,
+      stagger: 0,
+      width: "10px",
+      height: "10px",
+      colors: ['#ff4081', '#00e5ff', '#00c853', '#ffab00']
     };
-    particles.push(particle);
-  }
 
-  function updateConfetti() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach((particle, index) => {
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
-      particle.size *= 0.99;
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = particle.color;
-      ctx.fill();
-      
-      // Remove particles when they're too small
-      if (particle.size < 0.5) {
-        particles.splice(index, 1);
+    const interval = setInterval(function() {
+      confetti.create(document.body, confettiSettings)();
+      if (Date.now() > animationEnd) {
+        clearInterval(interval);
       }
-    });
-
-    if (particles.length < 100) {
-      createParticle();
-    }
-
-    requestAnimationFrame(updateConfetti);
-  }
-
-  updateConfetti();
+    }, 100);
+  };
 }
