@@ -1,5 +1,5 @@
 document.getElementById('celebrateLink').addEventListener('click', function() {
-  // Display the congratulatory message
+  // Show the congratulatory message
   document.getElementById('message').classList.remove('hidden');
 
   // Trigger the heart pulsation
